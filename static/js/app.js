@@ -53,28 +53,121 @@ function optionChanged(choice) {
         var li7 = d3.select("#metadata").append("p");
         li7.text("wfreq: " + wfreq);
 
-        sampleValues = data.samples[index].sample_values.slice(0,10)
-        console.log(sampleValues)
 
-        otuIds = data.samples[index].otu_ids.slice(0,10)
-        otuIdsText = otuIds.map(String)
-        console.log(otuIdsText)
+        // Bar Chart
 
-        otuLabels = data.samples[index].otu_labels.slice(0,10)
-        console.log(otuLabels)
+        // Gets values for top ten samples
+        // They are already sorted-- need to slice, and then  reverse so highest values at top of chart
+        sampleValues = data.samples[index].sample_values.slice(0,10).reverse()
+        
+        otuIds = data.samples[index].otu_ids.slice(0,10).reverse()
+        otuIdsText = otuIds.map(otuID => ("OTU " + otuID + "  "));
+
+        otuLabels = data.samples[index].otu_labels.slice(0,10).reverse()
 
         var trace1 = {
           x: sampleValues,
-          y: ['1','2','3','4','5','6','7','8','9','10'],
+          y: otuIdsText,
           text: otuLabels,
+          marker: {
+            color: 'white',
+            opacity: .5,
+          },
           orientation: "h",
           type: "bar"
         };
 
-        var data = [trace1];
+        var chartData = [trace1];
 
-        Plotly.newPlot("bar", data);
+        var layout = {
+            title: "Bacteria Abundance- Top Samples",
+            font: {
+              color: 'white',
+            },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            xaxis: {
+              title: {
+                text: 'Relative Abundance',
+              },
+            },
+            yaxis: {
+              title: {
+                text: 'Bacteria ID',
+              }
+            }
+          };
+
+        Plotly.newPlot("bar", chartData, layout);
+
+
+        // Bubble Chart 
+
+        var traceBubble = {
+            x: data.samples[index].otu_ids,
+            y: data.samples[index].sample_values,
+            text: data.samples[index].otu_labels,
+            mode: 'markers',
+            marker: {
+              color: data.samples[index].otu_ids,
+              size: data.samples[index].sample_values,
+              sizeref: 2.2
+            }
+          };
+          
+          var dataBubble = [traceBubble];
+          
+          var layoutBubble = {
+            title: 'Abundance by Type of Bacteria',
+            font: {
+              color: 'white',
+            },
+            showlegend: false,
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            xaxis: {
+              title: {
+                text: 'Bacteria ID',
+              },
+            },
+            yaxis: {
+              title: {
+                text: 'Relative Abundance',
+              }
+            }
+          };
+    
+          Plotly.newPlot("bubble", dataBubble, layoutBubble);
+
+
+        // Gauge
+
+        var gaugeData = [
+          {
+            domain: { x: [0, 1], y: [0, 1] },
+            value: wfreq,
+            title: { text: "Washes Per Day" },
+            type: "indicator",
+            mode: "gauge+number",
+            //delta: { reference: 380 },
+            gauge: {
+              axis: { range: [0, 9] },
+              steps: [
+                { range: [0, 9], color: "lightgray" },
+                //{ range: [250, 400], color: "gray" }
+              ],
+            }
+          }
+        ];
         
+        var layoutGauge = {
+          font: {
+            color: 'white',
+          },
+          paper_bgcolor: 'rgba(0,0,0,0)',
+          plot_bgcolor: 'rgba(0,0,0,0)',
+        };
+        Plotly.newPlot('gauge', gaugeData, layoutGauge);
     });
 };
 

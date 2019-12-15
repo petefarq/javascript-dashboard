@@ -10,42 +10,38 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
 
-<body style = "background: url(static/images/background.jpg) no-repeat center center fixed; 
--webkit-background-size: cover;
--moz-background-size: cover;
--o-background-size: cover;
-background-size: cover;">>
+<body>
 
-  <div class="container mt-1">
+  <div class="container">
     <div class="row">
-      <div class="col-md-12 p-3 text-center text-white bg-none border">
+      <div class="col-md-12 m-1 jumbotron text-center bg-white border border-primary rounded-lg">
         <h1>Belly Button Biodiversity Dashboard</h1>
         <p>Use the interactive charts below to explore the dataset</p>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-3 border-left border-right">
-        <div class="card text-white bg-primary p-1 mt-3">
+      <div class="col-md-3">
+        <div class="card text-white bg-primary m-1 p-1">
           <h5>Test Subject ID No.:</h5>
           <select id="selDataset" onchange="optionChanged(this.value)"></select>
         </div>
-        <div class="card text-white bg-primary p1">
+        <div class="card text-white bg-primary m-1 p1">
           <div class="card-heading">
             <h5 class="card-title">Demographic Info:</h5>
           </div>
-          <div class="card-body bg-primary text-white" id="metadata">
+          <div class="card-body text-white" id="metadata">
           </div>
         </div>
       </div>
-      <div class="col-md-5 border-right bg-none">
+      <div class="col-md-4 m-1 border border-primary rounded-lg">
         <div id="bar"></div>
       </div>
-      <div class="col-md-4 border-right bg-none">
+      <div class="col-md-4 m-1 border border-primary rounded-lg">
         <div id="gauge"></div>
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12 p-1 border bg-none">
+      <div class="col-md-12 m-1 sborder border-primary rounded-lg">
         <div id="bubble"></div>
       </div>
     </div>
@@ -55,10 +51,6 @@ background-size: cover;">>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <script src="./static/js/app.js"></script>
 
-</body<body class = "font-weight-light text-white" style = "background: url(static/images/background.jpg) no-repeat center center fixed; 
--webkit-background-size: cover;
--moz-background-size: cover;
--o-background-size: cover;
-background-size: cover;">>
+</body>
 
 </html>
